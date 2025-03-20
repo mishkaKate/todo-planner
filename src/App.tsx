@@ -39,7 +39,7 @@ function App() {
     setNextTaskText("");
   }, [tasks, nextTaskText]);
 
-  const handleInputChange = (e: HTMLInputElement) => {
+  const handleInputChange = (e) => {
     setNextTaskText(e?.target?.value);
   };
 
@@ -66,15 +66,23 @@ function App() {
     setFilter(e.target.value);
   };
 
+  const handleInputKeyDown = (e) => {
+    if (e.key === "Enter") {
+      addNewTask();
+    }
+  };
+
   return (
     <div className="todo">
       <div className="todo-header">todos</div>
       <div className="todo-body">
         <div className="todo-next">
           <input
+            type="text"
             className="todo-input"
             value={nextTaskText}
             onChange={handleInputChange}
+            onKeyDown={handleInputKeyDown}
             placeholder="What needs to be done?"
           ></input>
           <button
@@ -98,39 +106,39 @@ function App() {
             </li>
           ))}
         </ul>
-      </div>
-      <div className="todo-filter">
-        <span>{getActiveTasksCount()} items left</span>
-        <div className="todo-filters">
-          <input
-            type="radio"
-            name="todo-filter"
-            id="todo-filter-all"
-            value={Filter.All}
-            onChange={onFilterChange}
-            checked={filter === Filter.All}
-          ></input>
-          <label htmlFor="todo-filter-all">All</label>
-          <input
-            type="radio"
-            name="todo-filter"
-            id="todo-filter-active"
-            value={Filter.Active}
-            onChange={onFilterChange}
-            checked={filter === Filter.Active}
-          ></input>
-          <label htmlFor="todo-filter-active">Active</label>
-          <input
-            type="radio"
-            name="todo-filter"
-            id="todo-filter-completed"
-            value={Filter.Completed}
-            onChange={onFilterChange}
-            checked={filter === Filter.Completed}
-          ></input>
-          <label htmlFor="todo-filter-completed">Completed</label>
+        <div className="todo-filter">
+          <span>{getActiveTasksCount()} items left</span>
+          <div className="todo-filters">
+            <input
+              type="radio"
+              name="todo-filter"
+              id="todo-filter-all"
+              value={Filter.All}
+              onChange={onFilterChange}
+              checked={filter === Filter.All}
+            ></input>
+            <label htmlFor="todo-filter-all">All</label>
+            <input
+              type="radio"
+              name="todo-filter"
+              id="todo-filter-active"
+              value={Filter.Active}
+              onChange={onFilterChange}
+              checked={filter === Filter.Active}
+            ></input>
+            <label htmlFor="todo-filter-active">Active</label>
+            <input
+              type="radio"
+              name="todo-filter"
+              id="todo-filter-completed"
+              value={Filter.Completed}
+              onChange={onFilterChange}
+              checked={filter === Filter.Completed}
+            ></input>
+            <label htmlFor="todo-filter-completed">Completed</label>
+          </div>
+          <button className="button-clear">Clear completed</button>
         </div>
-        <button>Clear completed</button>
       </div>
     </div>
   );
