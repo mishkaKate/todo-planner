@@ -1,5 +1,7 @@
 import { Task } from "../../types";
 
+import "./todo-list.scss"
+
 interface IProps {
   items: Array<Task>;
   onItemClick: (item: Task) => void;

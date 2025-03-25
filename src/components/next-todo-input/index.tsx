@@ -1,3 +1,5 @@
+import "./next-todo-input.scss";
+
 interface IProps {
   value: string;
   onSubmit: () => void;

@@ -1,0 +1,26 @@
+
+    .todo-next {
+        text-align: left;
+        border-bottom: 2px solid var(--bg-color);
+
+        .todo-input {
+            padding: 12px 0 12px 52px;
+            margin-right: 12px;
+            border: none;
+            background: transparent;
+            font-size: var(--font-size-normal);
+            color: var(--text-color);
+          }
+
+          .todo-add {
+            background: transparent;
+            color: grey;
+            border: 1px solid grey;
+            border-radius: 30%;
+            padding: 4px 8px;
+         }
+      }
+      
+      
+      
+     

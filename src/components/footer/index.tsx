@@ -1,5 +1,7 @@
 import { Task, Filter } from "../../types";
 
+import "./footer.scss";
+
 interface Iprops {
   tasks: Array<Task>;
   filterValue: Filter;
