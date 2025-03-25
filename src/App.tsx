@@ -1,26 +1,16 @@
 import { useCallback, useState } from "react";
+
+import { Task, Filter } from "./types";
+import { TaskInput } from "./components/next-todo-input";
+import { TodoList } from "./components/todo-list";
+import { Footer } from "./components/footer";
+
 import "./App.css";
 
-enum Filter {
-  All = "All",
-  Completed = "Completed",
-  Active = "Active",
-}
-
-class Task {
-  text: string;
-  isDone: boolean;
-
-  constructor(text: string) {
-    this.text = text;
-    this.isDone = false;
-  }
-}
-
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Array<Task>>([]);
   const [nextTaskText, setNextTaskText] = useState("");
-  const [filter, setFilter] = useState(Filter.All);
+  const [filter, setFilter] = useState<Filter>(Filter.All);
 
   const getFiltered = (tasks: Array<Task>) => {
     if (filter === Filter.All) {
@@ -39,8 +29,8 @@ function App() {
     setNextTaskText("");
   }, [tasks, nextTaskText]);
 
-  const handleInputChange = (e) => {
-    setNextTaskText(e?.target?.value);
+  const clearClosedTasks = () => {
+    setTasks((tasks) => tasks.filter((task) => !task.isDone));
   };
 
   const setTaskIsDone = useCallback(
@@ -58,87 +48,22 @@ function App() {
     [tasks]
   );
 
-  const getActiveTasksCount = () => {
-    return tasks.filter((task) => !task.isDone).length;
-  };
-
-  const onFilterChange = (e) => {
-    setFilter(e.target.value);
-  };
-
-  const handleInputKeyDown = (e) => {
-    if (e.key === "Enter") {
-      addNewTask();
-    }
-  };
-
   return (
     <div className="todo">
       <div className="todo-header">todos</div>
       <div className="todo-body">
-        <div className="todo-next">
-          <input
-            type="text"
-            className="todo-input"
-            value={nextTaskText}
-            onChange={handleInputChange}
-            onKeyDown={handleInputKeyDown}
-            placeholder="What needs to be done?"
-          ></input>
-          <button
-            hidden={!nextTaskText}
-            className="todo-add"
-            onClick={addNewTask}
-          >
-            add
-          </button>
-        </div>
-        <ul className="todo-list">
-          {getFiltered(tasks).map((task) => (
-            <li className="todo-item">
-              <button
-                onClick={() => setTaskIsDone(task)}
-                aria-pressed={task.isDone}
-                aria-label="Is done"
-                className="is-done-button"
-              ></button>
-              <div className="task-text">{task.text}</div>
-            </li>
-          ))}
-        </ul>
-        <div className="todo-filter">
-          <span>{getActiveTasksCount()} items left</span>
-          <div className="todo-filters">
-            <input
-              type="radio"
-              name="todo-filter"
-              id="todo-filter-all"
-              value={Filter.All}
-              onChange={onFilterChange}
-              checked={filter === Filter.All}
-            ></input>
-            <label htmlFor="todo-filter-all">All</label>
-            <input
-              type="radio"
-              name="todo-filter"
-              id="todo-filter-active"
-              value={Filter.Active}
-              onChange={onFilterChange}
-              checked={filter === Filter.Active}
-            ></input>
-            <label htmlFor="todo-filter-active">Active</label>
-            <input
-              type="radio"
-              name="todo-filter"
-              id="todo-filter-completed"
-              value={Filter.Completed}
-              onChange={onFilterChange}
-              checked={filter === Filter.Completed}
-            ></input>
-            <label htmlFor="todo-filter-completed">Completed</label>
-          </div>
-          <button className="button-clear">Clear completed</button>
-        </div>
+        <TaskInput
+          value={nextTaskText}
+          onChange={setNextTaskText}
+          onSubmit={addNewTask}
+        />
+        <TodoList items={getFiltered(tasks)} onItemClick={setTaskIsDone} />
+        <Footer
+          tasks={tasks}
+          filterValue={filter}
+          onFilterChange={setFilter}
+          onClearClick={clearClosedTasks}
+        />
       </div>
     </div>
   );
