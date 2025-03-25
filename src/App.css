@@ -17,6 +17,24 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.todo {
+  width: 75vw;
+  padding: 12px;
+  background-color: var(--bg-color);
+}
+
+.todo-header {
+  font-size: var(--title-font-size);
+  font-weight: 100;
+  color: var(--header-font-color);
+}
+
+.todo-body {
+  background-color: white;
+  box-shadow: #c8c8c8;
+  box-shadow: 0 0 5px grey;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,0 +1,30 @@
+.todo-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    .todo-item {
+        display: flex;
+        padding: 12px 8px;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: var(--font-size-normal);
+        color: var(--text-color);
+        border-bottom: 1px solid var(--bg-color);
+      }
+
+      .is-done-button {
+        margin-right: 12px;
+        padding: 16px;
+        background-size: cover;
+        background-color: transparent;
+
+        &[aria-pressed="true"] {
+            background-image: url("../../assets/checkmark.svg");
+        }
+
+        &[aria-pressed="false"] {
+            background-image: url("../../assets/checkmark-empty.svg");
+        }
+      }
+}
