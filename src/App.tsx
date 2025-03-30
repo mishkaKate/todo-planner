@@ -36,7 +36,7 @@ function App() {
   const setTaskIsDone = useCallback(
     (task: Task) => {
       const nextTasks = tasks.map((stateTask) => {
-        if (stateTask.text === task.text) {
+        if (stateTask.id === task.id) {
           return { ...stateTask, isDone: !stateTask.isDone };
         }
 
