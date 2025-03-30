@@ -6,6 +6,10 @@
     background-color: white;
     color: var(--bg-color);
 
+    .todo-filters {
+        display: flex;
+    }
+
     .button-clear {
         background-color: transparent;
         color: var(--bg-color);
